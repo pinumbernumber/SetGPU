@@ -3,9 +3,9 @@
 
 ## Force a game to use your preferred GPU
 
-You might be aware of a workaround- first discovered [by reddit user /u/bryf50](https://www.reddit.com/r/hardware/comments/998zkw/freesync_on_an_nvidia_gpu_through_an_amd_gpu/) and later covered by [various youtubers](https://www.youtube.com/watch?v=qUYRZHFCkMw)- to get Freesync working while playing on an Nvidia card: Use an AMD GPU as an intermediary. Right now, this only works with APUs thanks to a Win10 power saving hack, and with dGPUs on a very small handful of games that let you select a GPU.
+You might be aware of a workaround- first discovered [by reddit user /u/bryf50](https://www.reddit.com/r/hardware/comments/998zkw/freesync_on_an_nvidia_gpu_through_an_amd_gpu/) and later covered by [various youtubers](https://www.youtube.com/watch?v=qUYRZHFCkMw)- to get Freesync working while playing on an Nvidia card: Use an AMD GPU as an intermediary. Until now, the workaround only worked using APUs thanks to a Win10 power saving hack (and with dGPUs on a very small handful of games that let you select a GPU).
 
-This tool works in any game (or, as of right now, any DX11 x64 game) and supports dedicated AMD cards.
+This tool works in any game (or, as of right now, any DX11 x64 game) and **supports dedicated AMD cards**.
 
 ## WARNING WARNING WARNING
 

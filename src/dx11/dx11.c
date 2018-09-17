@@ -29,6 +29,7 @@ DEFINE_GUID(SetGPU_IID_IDXGIFactory, 0x7b7166ec, 0x21c7, 0x44ae, 0xb2,0x1a, 0xc9
 
 // static const WCHAR* GLOBAL_whitelisted_gpu_name = L"NVIDIA GeForce GTX 960";
 // static const char* GLOBAL_whitelisted_gpu_name = "Intel(R) UHD Graphics 630";
+// static const char* GLOBAL_whitelisted_gpu_name = "Radeon";
 static const char* GLOBAL_whitelisted_gpu_name = "NVIDIA";
 
 bool is_device_name_ok(char* name) {

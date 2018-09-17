@@ -4,3 +4,4 @@ src/host
 src/gui
 src/gui_rem
 src/*/_generated/*.S
+_release_temp

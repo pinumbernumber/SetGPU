@@ -31,3 +31,7 @@ This work has a restrictive proprietary license for now. See LICENSE.md for deta
 * Close the game, download [the latest version of SetGPU](https://github.com/pinumbernumber/SetGPU/releases), extract it, and place those three DLLs beside the game's EXE. Try again and hopefully the game should be using your NV card, but with video output still going through your AMD card and freesync still working.
 
 If you run into problems, please open an issue. Let me know which game(s) you were trying and post a screenshot of the output from [this tool](https://github.com/pinumbernumber/misctemp105/raw/master/listgpu.exe).
+
+### 32-bit
+
+An experimental (that is, even more experimental than the main version) 32-bit build is available [here](https://github.com/pinumbernumber/misctemp105/raw/master/setgpu_bundle_5.zip). Any testing with 32-bit DX11 games would be particularly appreciated!

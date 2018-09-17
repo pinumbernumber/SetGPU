@@ -14,9 +14,22 @@ set -e
 
 # echo Compiling+Linking...
 
-rm -rf bin
+
+
+if [ -z $NOWIPEBIN ]
+then
+	rm -rf bin
+else
+	echo "Not wiping"
+fi
+
+
 mkdir -p bin/dx11/x64
+mkdir -p bin/dxgi/x64
 mkdir -p bin/setgpu/x64
+mkdir -p bin/dx11/x32
+mkdir -p bin/dxgi/x32
+mkdir -p bin/setgpu/x32
 
 if [ $BUILDCPU = "X64" ]
 then
@@ -35,21 +48,21 @@ else
 	exit 1
 fi
 
-rm -rf bin/dx11/${X32_or_X64}/*.dll
-rm -rf bin/dx11/${X32_or_X64}/*.dll
+# rm -rf bin/dx11/${X32_or_X64}/*.dll
+# rm -rf bin/dx11/${X32_or_X64}/*.dll
 # rm -rf _obj/dx11/${X32_or_X64}/*
 
 CFLAGS="-Wall -g ${CPUFLAGS} -Isrc -Isrc/common"
 
 # -fPIC
 
-rm -f bin/dx11/${X32_or_X64}/setgpu.dll 
+# rm -f bin/dx11/${X32_or_X64}/setgpu.dll 
 
 ${GCC} ${CFLAGS} -Isrc/setgpu -DSETGPU_BUILDING_DLL -shared \
 -o bin/setgpu/${X32_or_X64}/setgpu.dll \
 src/setgpu/setgpu.c
 
-cp bin/setgpu/${X32_or_X64}/setgpu.dll bin/dx11/${X32_or_X64}/setgpu.dll 
+# cp bin/setgpu/${X32_or_X64}/setgpu.dll bin/dx11/${X32_or_X64}/setgpu.dll 
 
 echo Built setgpu.dll
 
@@ -86,7 +99,7 @@ php src/common/dll_proxy_template.php.S > src/dxgi/_generated/_dxgi_proxy.S
 echo generated dxgi
 
 ${GCC} ${CFLAGS} -Isrc/dxgi -shared ${SETGPULFLAGS} \
--o bin/dx11/${X32_or_X64}/dxgi.dll \
+-o bin/dxgi/${X32_or_X64}/dxgi.dll \
 src/dxgi/_generated/_dxgi_proxy.S \
 src/dxgi/dxgi_basic.c \
 src/dxgi/dxgi.def

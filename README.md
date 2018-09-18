@@ -13,6 +13,12 @@ Very work in progress. Not user friendly at all. DX11 64-bit only. **Use in mult
 
 This work has a restrictive proprietary license for now. See LICENSE.md for details. You can use it freely for personal, non-commercial purposes, but must not redistribute it, release forks of it (except that you may of course create a fork for the purposes of sending a pull request etc), etc. It may be re-released under a more permissive license eventually.
 
+## Feedback
+
+Please use **[this form](https://goo.gl/forms/wjWuovWg9sHulpeF3)** to submit success or failure reports.
+
+You can also submit a GitHub issue if you prefer (the above form is encouraged as it ensures that all necessary troubleshooting info is collected if applicable.)
+
 ## Instructions
 
 

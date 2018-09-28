@@ -36,6 +36,7 @@ then
 	GCC='gcc'
 	CPUFLAGS='-DCPU64 -m64'
 	X32_or_X64=x64
+	WINDRESFLAGS='--target=pe-x86-64'
 elif [ $BUILDCPU = "X32" ]
 then
 	#-Wl,--kill-at --no-leading-underscore
@@ -43,6 +44,7 @@ then
 	# GCC='tcc -I"C:/Code/winapi-full-for-0.9.27/include" -I"C:/Code/winapi-full-for-0.9.27/include/winapi"'
 	CPUFLAGS='-DCPU32 -m32' 
 	X32_or_X64=x32
+	WINDRESFLAGS='--target=pe-i386'
 else
 	echo "Error: Specify CPU"
 	exit 1
@@ -52,15 +54,18 @@ fi
 # rm -rf bin/dx11/${X32_or_X64}/*.dll
 # rm -rf _obj/dx11/${X32_or_X64}/*
 
-CFLAGS="-Wall -g ${CPUFLAGS} -Isrc -Isrc/common"
+CFLAGS="-Wall -g ${CPUFLAGS} -Isrc -Isrc/common -Isrc/setgpu/include"
 
 # -fPIC
 
 # rm -f bin/dx11/${X32_or_X64}/setgpu.dll 
 
+rm -f src/setgpu/gui/_generated/SetGPU_Resources.o
+windres ${WINDRESFLAGS} src/setgpu/gui/SetGPU_Resources.rc src/setgpu/gui/_generated/SetGPU_Resources.o
+
 ${GCC} ${CFLAGS} -Isrc/setgpu -DSETGPU_BUILDING_DLL -shared \
 -o bin/setgpu/${X32_or_X64}/setgpu.dll \
-src/setgpu/setgpu.c
+src/setgpu/setgpu.c src/setgpu/gui/gui.c src/setgpu/gui/_generated/SetGPU_Resources.o
 
 # cp bin/setgpu/${X32_or_X64}/setgpu.dll bin/dx11/${X32_or_X64}/setgpu.dll 
 
@@ -73,7 +78,7 @@ SETGPULFLAGS="-Lbin/setgpu/${X32_or_X64}/ -lsetgpu"
 rm -f src/dx11/_generated/_d3d11_proxy.S
 
 REAL_DLL_FIXED_PATH=C:\\\\Windows\\\\System32\\\\d3d11.dll \
-FAKE_FUNCS=D3D11CreateDevice \
+FAKE_FUNCS=D3D11CreateDevice,D3D11CreateDeviceAndSwapChain \
 PATH_TO_DEF=`realpath src/dx11/d3d11.def` \
 php src/common/dll_proxy_template.php.S > src/dx11/_generated/_d3d11_proxy.S
 

@@ -5,7 +5,7 @@
 
 
 static bool SETGPU_GLOBAL_was_shared_init_done = false;
-static SETGPU_global_info SETGPU_GLOBAL_global_info;
+static SETGPU_Global_Info_t SETGPU_GLOBAL_global_info;
 
 SETGPU_FUNC bool SETGPU_drm_can_run() {
 	return true;
@@ -28,7 +28,7 @@ SETGPU_FUNC __cdecl void SETGPU_on_real_dll_loaded(HMODULE real_dll) {
 	SETGPU_shared_init();
 }
 
-SETGPU_FUNC SETGPU_global_info* SETGPU_get_global_info() {
+SETGPU_FUNC SETGPU_Global_Info_t* SETGPU_get_global_info() {
 	return &SETGPU_GLOBAL_global_info;
 }
 
@@ -42,4 +42,17 @@ SETGPU_FUNC void SETGPU_show_fatal_error(char* msg) {
 	MessageBoxA(NULL, full_msg, "SetGPU Error", MB_OK);
 	free(full_msg);
 	abort();
+}
+
+HMODULE SETGPU_dll_module;
+
+BOOL APIENTRY DllMain( HMODULE hModule,
+                       DWORD  ul_reason_for_call,
+                       LPVOID lpReserved
+                     )
+{
+	if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
+		SETGPU_dll_module = hModule;
+	}
+    return TRUE;
 }

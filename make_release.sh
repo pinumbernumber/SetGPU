@@ -5,8 +5,8 @@ rm -rf bin
 NOWIPEBIN=true BUILDCPU=X64 ./build.sh
 NOWIPEBIN=true BUILDCPU=X32 ./build.sh
 
-rm -rf _release_temp
-mkdir _release_temp
+rm -rf _release_temp/*
+mkdir -p _release_temp
 
 X64DIR="_release_temp/For_64-bit_games"
 mkdir $X64DIR

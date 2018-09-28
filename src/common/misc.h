@@ -19,3 +19,4 @@
 #error Unknown CPU
 #endif
 
+#define SETGPU_MAX_GPUS 4

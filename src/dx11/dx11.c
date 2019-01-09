@@ -125,18 +125,8 @@ static void get_gpu_list(SETGPU_Options_Dialog_GPU_t* out_gpus, int* out_num_gpu
     }
 }
 
-HRESULT WINAPI Fake_D3D11CreateDevice(
-    _In_opt_ IDXGIAdapter* pAdapter,
-    D3D_DRIVER_TYPE DriverType,
-    HMODULE Software,
-    UINT Flags,
-    _In_reads_opt_( FeatureLevels ) CONST D3D_FEATURE_LEVEL* pFeatureLevels,
-    UINT FeatureLevels,
-    UINT SDKVersion,
-    _COM_Outptr_opt_ ID3D11Device** ppDevice,
-    _Out_opt_ D3D_FEATURE_LEVEL* pFeatureLevel,
-    _COM_Outptr_opt_ ID3D11DeviceContext** ppImmediateContext
-) {
+static IDXGIAdapter* _get_adapter() {
+
 
     int num_gpus;
     SETGPU_Options_Dialog_GPU_t gpus[SETGPU_MAX_GPUS];
@@ -170,8 +160,26 @@ HRESULT WINAPI Fake_D3D11CreateDevice(
 
     // pAdapter = find_correct_adapter();
 
-    pAdapter = params.gpus[result.selected_gpu_index].ptr;
+    IDXGIAdapter* pAdapter = params.gpus[result.selected_gpu_index].ptr;
 
+    return pAdapter;
+}
+
+HRESULT WINAPI Fake_D3D11CreateDevice(
+    _In_opt_ IDXGIAdapter* pAdapter,
+    D3D_DRIVER_TYPE DriverType,
+    HMODULE Software,
+    UINT Flags,
+    _In_reads_opt_( FeatureLevels ) CONST D3D_FEATURE_LEVEL* pFeatureLevels,
+    UINT FeatureLevels,
+    UINT SDKVersion,
+    _COM_Outptr_opt_ ID3D11Device** ppDevice,
+    _Out_opt_ D3D_FEATURE_LEVEL* pFeatureLevel,
+    _COM_Outptr_opt_ ID3D11DeviceContext** ppImmediateContext
+) {
+
+
+    pAdapter = _get_adapter();
 
     HRESULT res = Real_D3D11CreateDevice(
         pAdapter,
@@ -204,40 +212,7 @@ HRESULT WINAPI Fake_D3D11CreateDeviceAndSwapChain(
   ID3D11DeviceContext        **ppImmediateContext
 ) {
 
-    int num_gpus;
-    SETGPU_Options_Dialog_GPU_t gpus[SETGPU_MAX_GPUS];
-
-    get_gpu_list(gpus, &num_gpus, SETGPU_MAX_GPUS);
-
-    printf("-----\n");
-    for (int i = 0; i < num_gpus; i++) {
-        printf("%s\n", gpus[i].name);
-    }
-
-
-    printf("-----\n");
-
-
-    SETGPU_Options_Dialog_Result_t result;
-
-    SETGPU_Options_Dialog_Params_t params = {
-        .output = &result,
-        .num_available = num_gpus,
-        .gpus = gpus,
-        .suggested_gpu_index = 0, 
-    };
-
-    bool ret = SETGPU_show_options_dialog_blocking(&params);
-
-    printf("ret %i, idx %i\n", (ret?1:0), result.selected_gpu_index);
-
-    // abort();
-    // system("PAUSE");
-
-    // pAdapter = find_correct_adapter();
-
-    pAdapter = params.gpus[result.selected_gpu_index].ptr;
-
+    pAdapter = _get_adapter();
 
     HRESULT res = Real_D3D11CreateDeviceAndSwapChain(
         pAdapter,

@@ -1,6 +1,10 @@
 
 # SetGPU
 
+## Update
+
+Nvidia has recently announced native support for Adaptive Sync. **You probably don't need or want this tool anymore!**
+
 ## Force a game to use your preferred GPU
 
 You might be aware of a workaround- first discovered [by reddit user /u/bryf50](https://www.reddit.com/r/hardware/comments/998zkw/freesync_on_an_nvidia_gpu_through_an_amd_gpu/) and later covered by [various youtubers](https://www.youtube.com/watch?v=qUYRZHFCkMw)- to get Freesync working while playing on an Nvidia card: Use an AMD GPU as an intermediary. Until now, the workaround only worked using APUs thanks to a Win10 power saving hack (and with dGPUs on a very small handful of games that let you select a GPU).
@@ -10,8 +14,6 @@ This tool works in any game (or, as of right now, any DX11 x64 game) and **suppo
 ## WARNING WARNING WARNING
 
 Very work in progress. Not user friendly at all. DX11 64-bit only. **Use in multiplayer games at your own risk** (it's not a cheat, but may well trip battleye etc due to the way it works. Not tested in multiplayer games.) Intended for use only by hardware enthusiasts who are happy to jump through hoops and who have patience for inevitable issues.
-
-This work has a restrictive proprietary license for now. See LICENSE.md for details. You can use it freely for personal, non-commercial purposes, but must not redistribute it, release forks of it (except that you may of course create a fork for the purposes of sending a pull request etc), etc. It may be re-released under a more permissive license eventually.
 
 ## Feedback
 
